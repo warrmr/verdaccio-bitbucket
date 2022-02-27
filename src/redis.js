@@ -13,13 +13,11 @@ const getClient = (redisOptions) => {
 };
 
 const getCluster = (redisOptions) => {
-  const client = redis.createClient(redisOptions);
-  const get = promisify(client.get).bind(client);
-  const set = promisify(client.set).bind(client);
+  const client = redis.createCluster(redisOptions);
 
   return {
-    get,
-    set,
+    get: client.get,
+    set: client.set,
   };
 };
 
