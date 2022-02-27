@@ -3,7 +3,7 @@ const Bitbucket = require('./models/Bitbucket');
 const { getClient: getRedisClient, getCluster: getRedisCluster } = require('./redis');
 const { CACHE_REDIS, CACHE_REDIS_CLUSTER, CACHE_IN_MEMORY } = require('./constants');
 
-const ALLOWED_CACHE_ENGINES = [CACHE_IN_MEMORY, CACHE_REDIS];
+const ALLOWED_CACHE_ENGINES = [CACHE_IN_MEMORY, CACHE_REDIS, CACHE_REDIS_CLUSTER];
 
 /**
  * Default cache time-to-live in seconds
