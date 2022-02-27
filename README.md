@@ -40,7 +40,7 @@ As simple as running:
 | `ttl`               | Time-to-live of cache (seconds). For ex. 604800 = 7 days                                                                                                      | {number}             | 604800        |
 | `defaultMailDomain` | Specify a default domain for the username, For ex. "gmail.com"                                                                                                | {string}             | null          |
 | `hashPassword`      | When using cache, it will save the passwords hashed (highly recommended)                                                                                      | {true|false}         | true          |
-| `cache`             | Caching engine to prevent re-accessing bitbucket servers. For Production usage and scaling, Redis is highly recommended                                       | redis|in-memory|null | null          |
+| `cache`             | Caching engine to prevent re-accessing bitbucket servers. For Production usage and scaling, Redis is highly recommended                                       | redis<br>redis-cluster |in-memory|null | null          |
 | `redis`             | YAML Nested Map of options for Redis Client creation (look on the config sample). Read more https://github.com/NodeRedis/node_redis                           | YAML Nested Map      |               |
 
 * `hashPassword` option is currently not supported by `verdaccio/verdaccio` docker image, since it's running on Linux Alpine without the `bcrypt` required packages.
