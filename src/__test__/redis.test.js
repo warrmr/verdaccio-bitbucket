@@ -1,18 +1,22 @@
 const redis = require('redis');
-const redisMock = require('redis-mock');
 const { getClient: getRedisClient, getCluster: getRedisCluster } = require('../redis');
 
-jest.spyOn(redis, 'createClient').mockImplementation(redisMock.createClient);
-
-const data = {};
+let data;
 
 const redisGet = jest.fn()
   .mockImplementationOnce(() => Promise.resolve(null))
-  .mockImplementation(key => new Promise(resolve => resolve(data[key])));
+  .mockImplementationOnce(key => new Promise(resolve => resolve(data[key])))
+  .mockImplementationOnce(() => Promise.resolve(null))
+  .mockImplementationOnce(key => new Promise(resolve => resolve(data[key])));
 
 const redisSet = jest.fn().mockImplementation((key, value) => {
   data[key] = value;
 });
+
+jest.spyOn(redis, 'createClient').mockImplementation(() => ({
+  get: redisGet,
+  set: redisSet,
+}));
 
 jest.spyOn(redis, 'createCluster').mockImplementation(() => ({
   get: redisGet,
@@ -22,6 +26,7 @@ jest.spyOn(redis, 'createCluster').mockImplementation(() => ({
 
 describe('Auth', () => {
   beforeEach(() => {
+    data = {};
     jest.clearAllMocks();
   });
 
