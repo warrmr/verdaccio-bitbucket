@@ -1,7 +1,7 @@
 const NodeCache = require('node-cache');
 const Bitbucket = require('./models/Bitbucket');
-const { getClient: getRedisClient } = require('./redis');
-const { CACHE_REDIS, CACHE_IN_MEMORY } = require('./constants');
+const { getClient: getRedisClient, getCluster: getRedisCluster } = require('./redis');
+const { CACHE_REDIS, CACHE_REDIS_CLUSTER, CACHE_IN_MEMORY } = require('./constants');
 
 const ALLOWED_CACHE_ENGINES = [CACHE_IN_MEMORY, CACHE_REDIS];
 
@@ -61,6 +61,12 @@ function Auth(config, stuff) {
         throw Error('Can\'t find Redis configuration');
       }
       this.cache = getRedisClient(config.redis);
+      break;
+    case CACHE_REDIS_CLUSTER:
+      if (!config.redis) {
+        throw Error('Can\'t find Redis cluster configuration');
+      }
+      this.cache = getRedisCluster(config.redis);
       break;
     case CACHE_IN_MEMORY:
       this.cache = new NodeCache();
