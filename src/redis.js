@@ -12,4 +12,15 @@ const getClient = (redisOptions) => {
   };
 };
 
-module.exports = getClient;
+const getCluster = (redisOptions) => {
+  const client = redis.createClient(redisOptions);
+  const get = promisify(client.get).bind(client);
+  const set = promisify(client.set).bind(client);
+
+  return {
+    get,
+    set,
+  };
+};
+
+module.exports = { getClient, getCluster };

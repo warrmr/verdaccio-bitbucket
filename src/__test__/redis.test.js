@@ -1,6 +1,6 @@
 const redis = require('redis');
 const redisMock = require('redis-mock');
-const getRedisClient = require('../redis');
+const { getClient: getRedisClient } = require('../redis');
 
 jest.spyOn(redis, 'createClient').mockImplementation(redisMock.createClient);
 

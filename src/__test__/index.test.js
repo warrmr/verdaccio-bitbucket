@@ -2,7 +2,7 @@ const NodeCache = require('node-cache');
 const bcrypt = require('bcrypt');
 const Auth = require('..');
 const Bitbucket = require('../models/Bitbucket');
-const getRedisClient = require('../redis');
+const { getClient: getRedisClient } = require('../redis');
 
 jest.mock('../redis');
 jest.mock('node-cache');

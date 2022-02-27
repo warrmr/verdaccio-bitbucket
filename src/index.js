@@ -1,6 +1,6 @@
 const NodeCache = require('node-cache');
 const Bitbucket = require('./models/Bitbucket');
-const getRedisClient = require('./redis');
+const { getClient: getRedisClient } = require('./redis');
 const { CACHE_REDIS, CACHE_IN_MEMORY } = require('./constants');
 
 const ALLOWED_CACHE_ENGINES = [CACHE_IN_MEMORY, CACHE_REDIS];
